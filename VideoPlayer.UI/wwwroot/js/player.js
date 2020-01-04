@@ -5,14 +5,15 @@ const progressBar = player.querySelector('.progress-filled');
 const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player-slider');
-const fullscreenButton = player.querySelector('.Fullscreen');
-const fullscreenIcon = player.querySelector('.material-icons');
+const fullscreenButton = player.querySelector('.fullscreen');
+const fullscreenIcon = player.querySelector('[data-fullscreen-icon]');
+const toggleIcon = player.querySelector('[data-toggle-icon]');
 
 function toggleFullscreen() {
-    if (fullscreenIcon.textContent === '') {
-        fullscreenIcon.textContent = '';
+    if (fullscreenIcon.className === 'fas fa-expand') {
+        fullscreenIcon.className = 'fas fa-compress';
     } else {
-        fullscreenIcon.textContent = '';
+        fullscreenIcon.className = 'fas fa-expand';
     }
     var isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
         (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
@@ -49,8 +50,8 @@ function togglePlay() {
 }
 
 function updateButton() {
-    const icon = this.paused ? '►' : '❚ ❚';
-    toggle.textContent = icon;
+    const icon = this.paused ? 'fas fa-play' : 'fas fa-pause';
+    toggleIcon.className = icon;
 }
 
 function skip() {
