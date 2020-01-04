@@ -22,14 +22,6 @@ namespace VideoPlayer.UI.Pages
         {
             _logger = logger;
             _environment = environment;
-            try
-            {
-                Video = "/video/SampleVideo.mp4";
-            }
-            catch
-            {
-
-            }
         }
 
         public void OnGet()
@@ -41,10 +33,16 @@ namespace VideoPlayer.UI.Pages
         public IFormFile VideoFile { get; set; }
         public async Task OnPostAsync()
         {
-            var file = Path.Combine(_environment.WebRootPath, "video", "SampleVideo.mp4");
-            using var fileStream = new FileStream(file, FileMode.OpenOrCreate);
-            await VideoFile.CopyToAsync(fileStream);
-            Video = "/video/SampleVideo.mp4";
+            string fileExt = Path.GetExtension(VideoFile.FileName);
+
+            if(fileExt == ".mp4")
+            {
+                var file = Path.Combine(_environment.WebRootPath, "video", VideoFile.FileName);
+
+                using var fileStream = new FileStream(file, FileMode.OpenOrCreate);
+                await VideoFile.CopyToAsync(fileStream);
+                Video = $"/video/{VideoFile.FileName}";
+            }
         }
     }
 }
