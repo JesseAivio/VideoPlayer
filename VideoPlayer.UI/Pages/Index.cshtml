@@ -1,19 +1,30 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "VideoPlayer";
 }
-
 <div class="player">
-    <video class="player-video viewer" src="~/video/SampleVideo.mp4"></video>
+    <video class="player-video viewer" src="@Model.Video"></video>
     <div class="player-controls">
         <div class="progress">
             <div class="progress-filled"></div>
         </div>
-        <input type="range" name="volume" class="player-slider" min=0 max="1" step="0.05" value="0.5" title="volume" />
-        <button class="player-button toggle"><i data-toggle-icon class="fas fa-play"></i></button>
-        <button data-skip="-10" class="player-button"><i class="fas fa-angle-double-left">10s</i></button>
-        <button data-skip="10" class="player-button"><i class="fas fa-angle-double-right">10s</i></button>
-        <button class="player-button fullscreen"><i data-fullscreen-icon class="fas fa-expand"></i></button>
+        <div class="other-controls">
+            <button class="player-button toggle" title="Play"><i data-toggle-icon class="fas fa-play"></i></button>
+            <button data-skip="-10" class="player-button" title="Rewind 10 seconds"><i class="fas fa-angle-double-left">10s</i></button>
+            <button data-skip="10" class="player-button" title="Skip 10 seconds"><i class="fas fa-angle-double-right">10s</i></button>
+            <input type="range" name="volume" class="player-slider" min=0 max="1" step="0.05" value="0.5" title="volume" />
+            <button class="player-button fullscreen" title="Fullscreen"><i data-fullscreen-icon class="fas fa-expand"></i></button>
+        </div>
     </div>
 </div>
+<nav id="context-menu" class="context-menu">
+    <ul class="context-menu__items">
+        <li class="context-menu__item">
+            <form method="post" enctype="multipart/form-data">
+                <input type="file" asp-for="VideoFile" />
+                <input type="submit" value="Play"/>
+            </form>
+        </li>
+    </ul>
+</nav>

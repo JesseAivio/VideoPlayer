@@ -12,8 +12,10 @@ const toggleIcon = player.querySelector('[data-toggle-icon]');
 function toggleFullscreen() {
     if (fullscreenIcon.className === 'fas fa-expand') {
         fullscreenIcon.className = 'fas fa-compress';
+        fullscreenButton.title = "Exit fullscreen";
     } else {
         fullscreenIcon.className = 'fas fa-expand';
+        fullscreenButton.title = "Fullscreen";
     }
     var isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
         (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
@@ -51,7 +53,9 @@ function togglePlay() {
 
 function updateButton() {
     const icon = this.paused ? 'fas fa-play' : 'fas fa-pause';
+    const title = this.paused ? 'Play' : 'Pause';
     toggleIcon.className = icon;
+    toggle.title = title;
 }
 
 function skip() {
@@ -74,7 +78,8 @@ function scrub(e) {
 
 function mouseHover(e) {
     const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
-    progress.title = scrubTime;
+    const str = Math.floor(scrubTime).toString().padStart(2, "0");
+    progress.title = str + "s";
 }
 
 video.addEventListener('dblclick', toggleFullscreen);
@@ -96,3 +101,7 @@ progress.addEventListener('mouseover', (e) => mouseHover(e));
 progress.addEventListener('mousemove', (e) => mousedown && scrub(e));
 progress.addEventListener('mousedown', () => mousedown = true);
 progress.addEventListener('mouseup', () => mousedown = false);
+
+
+
+
